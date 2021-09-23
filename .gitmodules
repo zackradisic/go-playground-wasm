@@ -1,0 +1,4 @@
+[submodule "goscript"]
+	path = goscript
+	url = https://github.com/zackradisic/goscript
+	branch = "wasm-experiment"
