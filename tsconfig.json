@@ -25,6 +25,6 @@
       "@utils*": ["utils*"]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "pages/_document.js"]
+  "exclude": ["node_modules", "goscript/"],
+  "include": ["**/*.ts", "**/*.tsx"]
 }
