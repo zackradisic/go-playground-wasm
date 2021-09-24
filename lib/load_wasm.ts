@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { WasmAlloc, WasmDealloc, WasmRunFn } from '@type/types'
 import { WASI } from '@wasmer/wasi'
+import { lowerI64Imports } from '@wasmer/wasm-transformer'
 import { WasmFs } from '@wasmer/wasmfs'
 import * as fflate from 'fflate'
 import * as path from 'isomorphic-path'
@@ -9,7 +10,8 @@ import { RunGo } from './RunGo'
 
 const instantiateWasm = async (wasi: WASI) => {
   const binary = await (await fetch('/wasm.wasm')).arrayBuffer()
-  const module = await WebAssembly.compile(binary)
+  const loweredBinary = await lowerI64Imports(new Uint8Array(binary))
+  const module = await WebAssembly.compile(loweredBinary)
   const imports = wasi.getImports(module)
   const instance = await WebAssembly.instantiate(module, {
     ...imports
